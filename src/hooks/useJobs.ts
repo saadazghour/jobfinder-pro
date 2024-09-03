@@ -13,7 +13,24 @@ export const useJobs = (
 ) => {
   return useQuery(
     ["jobs", page, limit, order_by, sort_by, category, searchText], // Unique query key
-    () => fetchJobs(page, limit, order_by, sort_by, category, searchText),
+
+    async () => {
+      const res = await fetchJobs(
+        page,
+        limit,
+        order_by,
+        sort_by,
+        category,
+        searchText
+      );
+
+      console.log("API Response", res);
+
+      const { jobs } = res.data;
+
+      return jobs;
+    },
+
     {
       keepPreviousData: true, // Optional: Keeps the previous data while fetching new data
     }
