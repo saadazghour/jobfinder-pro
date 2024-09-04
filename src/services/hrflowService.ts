@@ -25,7 +25,7 @@ export const fetchJobs = async (
       limit,
       order_by,
       sort_by,
-      names: searchText ? `[${searchText}]` : undefined,
+      names: searchText ? JSON.stringify([searchText]) : undefined,
     },
   });
   return response.data;
