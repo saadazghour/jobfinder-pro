@@ -3,6 +3,7 @@ import { useJobs } from "../hooks/useJobs";
 import JobList from "./JobList";
 import FilterBar from "./FilterBar"; // Component for filtering jobs
 import { Job } from "../types/job";
+import { Spinner } from "../components/Spinner";
 
 // Define types for filter options
 type OrderByType = "asc" | "desc";
@@ -31,7 +32,7 @@ const JobListPage: React.FC = () => {
   const [jobs, setJobs] = useState<Job[]>([]);
 
   // Using the useJobs hook with the correct types
-  const { data, isLoading, isError } = useJobs(
+  const { data, isLoading, isError, isSuccess } = useJobs(
     page,
     filters.limit,
     filters.order_by,
@@ -49,6 +50,9 @@ const JobListPage: React.FC = () => {
 
   const handleFiltersChange = (newFilters: any) => {
     // Reset to the first page when filters change
+
+    console.log("newFilters logged", newFilters);
+
     setPage(1);
     setFilters({ ...filters, ...newFilters });
   };
@@ -59,10 +63,21 @@ const JobListPage: React.FC = () => {
     <div>
       <FilterBar onApplyFilters={handleFiltersChange} />
 
-      {isLoading && <p>Loading...</p>}
-      {isError && <p>Error fetching jobs</p>}
+      {isLoading && (
+        <div className="flex items-center justify-center mt-8">
+          <Spinner />
+        </div>
+      )}
 
-      {jobs && (
+      {isError && (
+        <p className="mt-8 text-center text-red-500">Error fetching jobs.</p>
+      )}
+
+      {isSuccess && jobs.length === 0 && (
+        <p className="mt-8 text-center text-gray-500">No jobs found.</p>
+      )}
+
+      {isSuccess && jobs.length > 0 && (
         <JobList
           jobs={jobs}
           setJobs={setJobs}
@@ -74,23 +89,25 @@ const JobListPage: React.FC = () => {
 
       {/* Pagination controls */}
 
-      <div className="flex justify-center mt-4">
-        <button
-          className="px-4 py-2 mr-2 text-white bg-blue-500 rounded disabled:bg-gray-300"
-          onClick={() => handlePageChange(page - 1)}
-          disabled={page === 1}
-        >
-          Previous
-        </button>
+      {isSuccess && jobs.length > 0 && (
+        <div className="flex justify-center mt-4">
+          <button
+            className="px-4 py-2 mr-2 text-white bg-blue-500 rounded disabled:bg-gray-300"
+            onClick={() => handlePageChange(page - 1)}
+            disabled={page === 1}
+          >
+            Previous
+          </button>
 
-        <button
-          className="px-4 py-2 text-white bg-blue-500 rounded disabled:bg-gray-300"
-          onClick={() => handlePageChange(page + 1)}
-          disabled={jobs && jobs.length < filters.limit}
-        >
-          Next
-        </button>
-      </div>
+          <button
+            className="px-4 py-2 text-white bg-blue-500 rounded disabled:bg-gray-300"
+            onClick={() => handlePageChange(page + 1)}
+            disabled={jobs && jobs.length < filters.limit}
+          >
+            Next
+          </button>
+        </div>
+      )}
     </div>
   );
 };
