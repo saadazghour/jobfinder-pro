@@ -7,6 +7,7 @@ interface FilterBarProps {
 const FilterBar: React.FC<FilterBarProps> = ({ onApplyFilters }) => {
   const [searchText, setSearchText] = useState<string>("");
   const [category, setCategory] = useState<string | undefined>(undefined);
+
   const [orderBy, setOrderBy] = useState<"asc" | "desc">("desc");
   const [sortBy, setSortBy] = useState<string>("created_at");
 

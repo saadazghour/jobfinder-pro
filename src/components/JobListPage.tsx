@@ -6,7 +6,7 @@ import { Job } from "../types/job";
 
 // Define types for filter options
 type OrderByType = "asc" | "desc";
-type SortByType = "created_at" | "name" | "category";
+type SortByType = "created_at" | "updated_at";
 
 interface FilterOptions {
   limit: number;

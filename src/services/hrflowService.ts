@@ -9,8 +9,10 @@ const BOARD_KEY = "887595b735d68f0bc0b0b0535f7d8f7d158a3f4e";
 export const fetchJobs = async (
   page: number = 1,
   limit: number = 10,
+
   order_by: "asc" | "desc" = "desc",
   sort_by: string = "created_at",
+
   category?: string,
   searchText?: string
 ) => {
@@ -19,8 +21,20 @@ export const fetchJobs = async (
     board_keys: JSON.stringify([BOARD_KEY]),
     page,
     limit,
-    order_by,
-    sort_by,
+    order_by, // Either 'asc' or 'desc'
+
+    // Based on the API documentation: the sort_by parameter allows sorting by the following fields:
+
+    // searching
+    // created_at
+    // updated_at
+    // location
+    // location_experience
+    // location_education
+
+    // We cannot directly sort by name or category using the sort_by parameter as the API does not support these fields for sorting.
+
+    sort_by, // The field to sort by (e.g., 'created_at', 'name', 'category')
   };
 
   if (searchText) {
