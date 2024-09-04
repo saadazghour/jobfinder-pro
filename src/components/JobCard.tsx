@@ -2,11 +2,7 @@ import React, { useState } from "react";
 
 import { Job } from "../types/job";
 
-import {
-  SortableContext,
-  sortableKeyboardCoordinates,
-  useSortable,
-} from "@dnd-kit/sortable";
+import { useSortable } from "@dnd-kit/sortable";
 
 import { CSS } from "@dnd-kit/utilities";
 
