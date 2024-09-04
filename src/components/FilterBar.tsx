@@ -21,6 +21,21 @@ const FilterBar: React.FC<FilterBarProps> = ({ onApplyFilters }) => {
     });
   };
 
+  // Reset all filters to default values
+  const handleResetFilters = () => {
+    setSearchText("");
+    setCategory(undefined);
+    setOrderBy("desc");
+    setSortBy("created_at");
+
+    onApplyFilters({
+      searchText: "",
+      category: undefined,
+      order_by: "desc",
+      sort_by: "created_at",
+    });
+  };
+
   return (
     <div className="flex flex-col items-center gap-4 p-4 mb-4 bg-gray-100 rounded-md sm:flex-row">
       {/* Search Input */}
@@ -74,6 +89,14 @@ const FilterBar: React.FC<FilterBarProps> = ({ onApplyFilters }) => {
         className="p-2 text-white bg-blue-500 rounded-md"
       >
         Apply Filters
+      </button>
+
+      {/* Reset Filters Button */}
+      <button
+        onClick={handleResetFilters}
+        className="p-2 text-white bg-red-500 rounded-md"
+      >
+        Reset Filters
       </button>
     </div>
   );
