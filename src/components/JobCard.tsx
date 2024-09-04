@@ -2,12 +2,31 @@ import React, { useState } from "react";
 
 import { Job } from "../types/job";
 
+import {
+  SortableContext,
+  sortableKeyboardCoordinates,
+  useSortable,
+} from "@dnd-kit/sortable";
+
+import { CSS } from "@dnd-kit/utilities";
+
 interface JobCardProps {
   job: Job;
+  isDragging: boolean; // Indicate if sorting is in progress
 }
 
-const JobCard: React.FC<JobCardProps> = ({ job }) => {
+const JobCard: React.FC<JobCardProps> = ({ job, isDragging }) => {
   const [isExpanded, setIsExpanded] = useState(false);
+
+  const { attributes, listeners, setNodeRef, transform, transition } =
+    useSortable({
+      id: job.id,
+    });
+
+  const style = {
+    transform: transform ? CSS.Transform.toString(transform) : undefined,
+    transition,
+  };
 
   const handleExpand = () => {
     setIsExpanded(!isExpanded);
@@ -28,7 +47,11 @@ const JobCard: React.FC<JobCardProps> = ({ job }) => {
 
   return (
     <div
-      className="p-4 mb-4 bg-white rounded-md shadow-md cursor-pointer"
+      ref={setNodeRef}
+      {...attributes}
+      {...listeners}
+      style={style}
+      className="p-4 mb-4 bg-green-300 rounded-md shadow-md cursor-pointer"
       onClick={handleExpand}
     >
       <div>
