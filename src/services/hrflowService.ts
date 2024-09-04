@@ -14,19 +14,36 @@ export const fetchJobs = async (
   category?: string,
   searchText?: string
 ) => {
+  // Construct query parameters dynamically
+  const params: any = {
+    board_keys: JSON.stringify([BOARD_KEY]),
+    page,
+    limit,
+    order_by,
+    sort_by,
+  };
+
+  if (searchText) {
+    params.names = searchText ? JSON.stringify([searchText]) : undefined;
+  }
+
+  // Utilize the appropriate API parameter (tags_included) to filter jobs by category.
+
+  // Filter results containing certain tag names and their values. Shape of this field [ [... OR ...] AND [... OR ...] ]. Example : [[{"name":"sync","value":"1"}]]
+
+  if (category) {
+    params.tags_included = JSON.stringify([
+      [{ name: "category", value: category }],
+    ]);
+  }
+
   const response = await axios.get("https://api.hrflow.ai/v1/jobs/searching", {
     headers: {
       "X-API-KEY": API_KEY,
       "X-USER-EMAIL": USER_EMAIL,
     },
-    params: {
-      board_keys: JSON.stringify([BOARD_KEY]),
-      page,
-      limit,
-      order_by,
-      sort_by,
-      names: searchText ? JSON.stringify([searchText]) : undefined,
-    },
+    params,
   });
+
   return response.data;
 };

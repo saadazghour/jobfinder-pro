@@ -41,10 +41,10 @@ const FilterBar: React.FC<FilterBarProps> = ({ onApplyFilters }) => {
         <option value="AI / Research & Development">
           AI / Research & Development
         </option>
-        <option value="Artificial Intelligence">Artificial Intelligence</option>
+        <option value="Artificial intelligence">Artificial Intelligence</option>
         <option value="Financial Services">Financial Services</option>
-        <option value="Human Resources">Human Resources</option>
-        <option value="Software Engineering">Software Engineering</option>
+        <option value="Human resources">Human Resources</option>
+        <option value="Software engineering">Software Engineering</option>
       </select>
 
       {/* Sorting Options */}

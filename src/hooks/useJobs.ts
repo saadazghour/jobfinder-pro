@@ -12,7 +12,8 @@ export const useJobs = (
   searchText?: string
 ) => {
   return useQuery(
-    ["jobs", page, limit, order_by, sort_by, category, searchText], // Unique query key
+    // Unique query key that depends on all parameters
+    ["jobs", page, limit, order_by, sort_by, category, searchText],
 
     async () => {
       const res = await fetchJobs(
