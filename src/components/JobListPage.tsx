@@ -31,6 +31,8 @@ const JobListPage: React.FC = () => {
   const [isDragging, setIsDragging] = useState(false); // Track dragging state
   const [jobs, setJobs] = useState<Job[]>([]);
 
+  const [meta, setMeta] = useState<any>(null); // State to store meta information
+
   // Using the useJobs hook with the correct types
   const { data, isLoading, isError, isSuccess } = useJobs(
     page,
@@ -44,14 +46,17 @@ const JobListPage: React.FC = () => {
   // Update local state with fetched jobs data
   useEffect(() => {
     if (data) {
-      setJobs(data);
+      const { jobs, meta } = data;
+
+      setJobs(jobs);
+      setMeta(meta);
     }
   }, [data]);
 
   const handleFiltersChange = (newFilters: any) => {
     // Reset to the first page when filters change
 
-    console.log("newFilters logged", newFilters);
+    // console.log("newFilters logged", newFilters);
 
     setPage(1);
     setFilters({ ...filters, ...newFilters });
@@ -89,7 +94,7 @@ const JobListPage: React.FC = () => {
 
       {/* Pagination controls */}
 
-      {isSuccess && jobs.length > 0 && (
+      {isSuccess && meta && meta.maxPage > 1 && (
         <div className="flex justify-center mt-4">
           <button
             className="px-4 py-2 mr-2 text-white bg-blue-500 rounded disabled:bg-gray-300"
@@ -99,10 +104,14 @@ const JobListPage: React.FC = () => {
             Previous
           </button>
 
+          <span className="px-4 py-2">
+            Page {meta.page} of {meta.maxPage}
+          </span>
+
           <button
             className="px-4 py-2 text-white bg-blue-500 rounded disabled:bg-gray-300"
             onClick={() => handlePageChange(page + 1)}
-            disabled={jobs && jobs.length < filters.limit}
+            disabled={page === meta.maxPage}
           >
             Next
           </button>

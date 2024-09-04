@@ -25,11 +25,10 @@ export const useJobs = (
         searchText
       );
 
-      console.log("API Response", res);
-
       const { jobs } = res.data;
+      const { meta } = res;
 
-      return jobs;
+      return { jobs, meta };
     },
 
     {
