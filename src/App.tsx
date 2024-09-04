@@ -1,26 +1,18 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+// This is the main App component, where I will render the JobListPage and wrap it with necessary providers like React Query.
 
-function App() {
+import React from "react";
+import JobListPage from "./components/JobListPage";
+
+import "./App.css";
+
+const App: React.FC = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="container p-4 mx-auto">
+      <h1 className="mb-4 text-2xl font-bold">Job Finder Pro</h1>
+      {/* Render the main job listing page */}
+      <JobListPage />
     </div>
   );
-}
+};
 
 export default App;
