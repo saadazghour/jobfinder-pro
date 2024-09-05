@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { MouseEvent, useState } from "react";
 
 import { Job } from "../types/job";
 
@@ -24,7 +24,9 @@ const JobCard: React.FC<JobCardProps> = ({ job, isDragging }) => {
     transition,
   };
 
-  const handleExpand = () => {
+  const handleExpand = (event: MouseEvent) => {
+    // Prevent drag from being triggered on click
+    event.stopPropagation();
     setIsExpanded(!isExpanded);
   };
 
@@ -45,17 +47,22 @@ const JobCard: React.FC<JobCardProps> = ({ job, isDragging }) => {
     <div
       ref={setNodeRef}
       {...attributes}
-      {...listeners}
       style={style}
       className="p-4 mb-4 bg-green-300 rounded-md shadow-md cursor-pointer"
-      onClick={handleExpand}
     >
-      <div>
+      <div {...listeners} className="text-lg font-semibold cursor-move">
         <h3 className="text-lg font-semibold">{job.name}</h3>
         <p className="text-sm text-gray-500">
           Created on: {new Date(job.created_at).toLocaleDateString()}
         </p>
       </div>
+
+      <button
+        onClick={handleExpand}
+        className="text-gray-500 transition duration-300 hover:text-gray-800"
+      >
+        {isExpanded ? "▲" : "▼"}
+      </button>
 
       {/* Expanded Details */}
       {isExpanded && (
