@@ -1,6 +1,6 @@
 import { render, fireEvent, screen } from "@testing-library/react";
-import JobCard from "./JobCard";
-import { Job } from "../types/job";
+import JobCard from "../../components/JobCard";
+import { Job } from "../../types/job";
 
 // Mock data for a job
 const mockJob: Job = {

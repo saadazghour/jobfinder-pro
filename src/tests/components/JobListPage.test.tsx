@@ -1,6 +1,6 @@
 import { render, screen } from "@testing-library/react";
 import { QueryClient, QueryClientProvider } from "react-query";
-import JobListPage from "./JobListPage";
+import JobListPage from "../../components/JobListPage";
 
 const queryClient = new QueryClient();
 

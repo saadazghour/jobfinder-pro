@@ -1,5 +1,5 @@
 import { render, fireEvent, screen } from "@testing-library/react";
-import FilterBar from "./FilterBar";
+import FilterBar from "../../components/FilterBar";
 
 describe("FilterBar", () => {
   const mockOnApplyFilters = jest.fn();

@@ -1,6 +1,6 @@
 import { render, screen } from "@testing-library/react";
-import JobList from "./JobList";
-import { Job } from "../types/job";
+import JobList from "../../components/JobList";
+import { Job } from "../../types/job";
 
 const mockJobs: Job[] = [
   {
