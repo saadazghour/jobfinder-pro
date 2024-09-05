@@ -12,7 +12,6 @@ describe("JobListPage", () => {
       </QueryClientProvider>
     );
 
-    // Check if filter bar is rendered
     expect(
       screen.getByPlaceholderText(/Search jobs by name/i)
     ).toBeInTheDocument();

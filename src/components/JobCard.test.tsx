@@ -20,9 +20,7 @@ describe("JobCard", () => {
   test("renders job details correctly", () => {
     render(<JobCard job={mockJob} isDragging={false} />);
 
-    // Check if job name is displayed
     expect(screen.getByText(/Software Developer/i)).toBeInTheDocument();
-    // Check if job creation date is displayed
     expect(screen.getByText(/Created on/i)).toBeInTheDocument();
   });
 
@@ -30,21 +28,16 @@ describe("JobCard", () => {
     render(<JobCard job={mockJob} isDragging={false} />);
     const jobCard = screen.getByText(/Software Developer/i);
 
-    // Initially, expanded details should not be visible
     expect(screen.queryByText(/Develop amazing applications/i)).toBeNull();
 
-    // Click to expand
     fireEvent.click(jobCard);
 
-    // Details should now be visible
     expect(
       screen.getByText(/Develop amazing applications/i)
     ).toBeInTheDocument();
 
-    // Click again to collapse
     fireEvent.click(jobCard);
 
-    // Details should now be hidden
     expect(screen.queryByText(/Develop amazing applications/i)).toBeNull();
   });
 });

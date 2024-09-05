@@ -31,7 +31,6 @@ describe("JobList", () => {
       />
     );
 
-    // Check if job card is rendered
     expect(screen.getByText(/Software Developer/i)).toBeInTheDocument();
   });
 });
