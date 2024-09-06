@@ -6,6 +6,9 @@ import { useSortable } from "@dnd-kit/sortable";
 
 import { CSS } from "@dnd-kit/utilities";
 
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faChevronDown, faChevronUp } from "@fortawesome/free-solid-svg-icons";
+
 interface JobCardProps {
   job: Job;
   isDragging: boolean; // Indicate if sorting is in progress
@@ -59,9 +62,10 @@ const JobCard: React.FC<JobCardProps> = ({ job, isDragging }) => {
 
       <button
         onClick={handleExpand}
-        className="text-gray-500 transition duration-300 hover:text-gray-800"
+        className="flex items-center text-gray-500 transition duration-300 hover:text-gray-800"
       >
-        {isExpanded ? "▲" : "▼"}
+        <FontAwesomeIcon icon={isExpanded ? faChevronUp : faChevronDown} />
+        <span className="ml-2">{isExpanded ? "Collapse" : "Expand"}</span>
       </button>
 
       {/* Expanded Details */}
